@@ -1,0 +1,3 @@
+[submodule "Gamba_BlackJackXPlugin/ECommons"]
+	path = Gamba_BlackJackXPlugin/ECommons
+	url = https://github.com/NightmareXIV/ECommons.git
