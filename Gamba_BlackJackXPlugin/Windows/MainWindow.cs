@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Numerics;
 using Dalamud.Interface.Internal;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
+using ECommons.Automation;
 using ImGuiNET;
 
 namespace SamplePlugin.Windows;
@@ -12,6 +13,9 @@ public class MainWindow : Window, IDisposable
 {
     private string GoatImagePath;
     private Plugin Plugin;
+    private int bet = 0;
+    private int MinBet = 20000;
+    private int MaxBet = 500000;
 
     // We give this window a hidden ID using ##
     // So that the user will see "My Amazing Window" as window title,
@@ -33,6 +37,34 @@ public class MainWindow : Window, IDisposable
 
     public override void Draw()
     {
+
+        var chat = new Chat();
+
+        ImGui.BeginChild("Bets", new Vector2(400, 300), true);
+
+        ImGui.Text("Enter your Bet");
+        ImGui.SameLine();
+        ImGui.InputInt("##Bet", ref bet, 8);
+
+        if (ImGui.Button("Hit"))
+        {
+            chat.ExecuteCommand("/p");
+            chat.ExecuteCommand("/dice party 13");
+        }
+
+
+        if (bet < MinBet || bet > MaxBet)
+        {
+            ImGui.Text($"Bet amount must be between {MinBet} and {MaxBet}.");
+            bet = 0; // Reset bet if it's out of bounds
+        }
+        else
+        {
+            ImGui.Text($"Your bet amount is ({bet})");
+        }
+
+        ImGui.EndChild();
+
         ImGui.Text($"The random config bool is {Plugin.Configuration.SomePropertyToBeSavedAndWithADefault}");
 
         if (ImGui.Button("Show Settings"))
@@ -56,3 +88,4 @@ public class MainWindow : Window, IDisposable
         }
     }
 }
+

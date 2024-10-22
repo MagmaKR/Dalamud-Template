@@ -1,10 +1,12 @@
-﻿using Dalamud.Game.Command;
+using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using System.IO;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
 using SamplePlugin.Windows;
+using ECommons;
+using System.Reflection;
 
 namespace SamplePlugin;
 
@@ -48,6 +50,9 @@ public sealed class Plugin : IDalamudPlugin
 
         // Adds another button that is doing the same but for the main ui of the plugin
         PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+        ECommonsMain.Init(PluginInterface, this);
+        ECommonsMain.Init(PluginInterface, this, ECommons.Module.All);
+
     }
 
     public void Dispose()
