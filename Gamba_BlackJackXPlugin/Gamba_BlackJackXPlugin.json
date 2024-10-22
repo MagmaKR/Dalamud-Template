@@ -1,7 +1,7 @@
 {
-  "Author": "your name here",
-  "Name": "Sample Plugin",
-  "Punchline": "A short one-liner that shows up in /xlplugins.",
+  "Author": "MagmaK",
+  "Name": "Gamba_BlackJackXPlugin",
+  "Punchline": "A blackJack manger.",
   "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
   "ApplicableVersion": "any",
   "Tags": [
