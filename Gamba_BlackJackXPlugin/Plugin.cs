@@ -7,6 +7,7 @@ using Dalamud.Plugin.Services;
 using SamplePlugin.Windows;
 using ECommons;
 using System.Reflection;
+using ECommons.Automation;
 
 namespace SamplePlugin;
 
@@ -15,6 +16,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
     [PluginService] internal static ITextureProvider TextureProvider { get; private set; } = null!;
     [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
+    [PluginService] public static IClientState clientState { get; private set; } = null!;
 
     private const string CommandName = "/pmycommand";
 
@@ -23,6 +25,12 @@ public sealed class Plugin : IDalamudPlugin
     public readonly WindowSystem WindowSystem = new("SamplePlugin");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
+    public Chat Chat { get; }
+    public PlayerNameUI PlayerNameUI { get; }
+    public string dealerName = string.Empty;
+
+
+
 
     public Plugin()
     {
@@ -30,6 +38,7 @@ public sealed class Plugin : IDalamudPlugin
 
         // you might normally want to embed resources and load them from the manifest stream
         var goatImagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
+        
 
         ConfigWindow = new ConfigWindow(this);
         MainWindow = new MainWindow(this, goatImagePath);
@@ -52,6 +61,9 @@ public sealed class Plugin : IDalamudPlugin
         PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
         ECommonsMain.Init(PluginInterface, this);
         ECommonsMain.Init(PluginInterface, this, ECommons.Module.All);
+        Chat = new Chat();
+        PlayerNameUI = new PlayerNameUI();
+     
 
     }
 
@@ -63,6 +75,7 @@ public sealed class Plugin : IDalamudPlugin
         MainWindow.Dispose();
 
         CommandManager.RemoveHandler(CommandName);
+       
     }
 
     private void OnCommand(string command, string args)
