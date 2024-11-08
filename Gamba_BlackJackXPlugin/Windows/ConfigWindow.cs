@@ -17,7 +17,11 @@ public class ConfigWindow : Window, IDisposable
     private static string HitText = string.Empty;
     public static string StandValue = string.Empty;
     public static string DoubleDownValue = string.Empty;
-    private static string savedText1, savedText2, savedText3, savedText4 = "";
+    public static string rulesEmote = string.Empty;
+    public static string BetEmote = string.Empty;
+    public static string Natural21 = string.Empty;
+    public static string Bust = string.Empty;
+    private static string savedText1, savedText2, savedText3, savedText4 , savedText5, savedText6 , savedText7 , savedText8 = "";
     public Plugin plugin;
     public string DealerName;
     private string selectedPlayer = "Select a player";
@@ -33,7 +37,7 @@ public class ConfigWindow : Window, IDisposable
         Flags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
                 ImGuiWindowFlags.NoScrollWithMouse;
 
-        Size = new Vector2(470, 350);
+        Size = new Vector2(500, 550);
         SizeCondition = ImGuiCond.Always;
 
         Configuration = plugin.Configuration;
@@ -58,7 +62,7 @@ public class ConfigWindow : Window, IDisposable
     {
 
 
-        ImGui.TextColored(ImGuiColors.DPSRed, "Settings meu");
+        ImGui.TextColored(ImGuiColors.TankBlue, "Settings meu");
         ImGui.Dummy(new Vector2(0, 40));
         ImGui.SetNextItemWidth(250f);
         {
@@ -80,10 +84,32 @@ public class ConfigWindow : Window, IDisposable
         ImGui.Dummy(new Vector2(0, 20));
         ImGui.SetNextItemWidth(250f);
         {
-            ImGui.InputTextWithHint("Double down ", "emote done after player double downs ", ref DoubleDownValue, 50);
+            ImGui.InputTextWithHint("Doubledown emote", "emote done after player double downs ", ref DoubleDownValue, 50);
+        }
+        ImGui.Dummy(new Vector2(0, 20));
+        ImGui.SetNextItemWidth(250f);
+        {
+            ImGui.InputTextWithHint("Rules emote ", "emote done after player shows rules ", ref rulesEmote, 50);
         }
 
-        
+        ImGui.Dummy(new Vector2(0, 20));
+        ImGui.SetNextItemWidth(250f);
+        {
+            ImGui.InputTextWithHint("Bet emote", "emote done after player Bets ", ref BetEmote, 50);
+        }
+
+        ImGui.Dummy(new Vector2(0, 20));
+        ImGui.SetNextItemWidth(250f);
+        {
+            ImGui.InputTextWithHint("Natural 21 emote", "emote done after player hits a natural 21", ref Natural21, 50);
+        }
+
+        ImGui.Dummy(new Vector2(0, 20));
+        ImGui.SetNextItemWidth(250f);
+        {
+            ImGui.InputTextWithHint("Bust emote", "emote done after player busts", ref Bust, 50);
+        }
+
         {
             DealerMembers();
         }
@@ -92,34 +118,49 @@ public class ConfigWindow : Window, IDisposable
 
     public void Buttons()
     {
-        ImGui.SetCursorPos(new Vector2(10, 300));
+        ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.TankBlue);
+        ImGui.SetCursorPos(new Vector2(10, 520));
         if (ImGui.Button("Save"))
         {
             savedText1 = vALUEHIT;
             savedText2 = HitText;
             savedText3 = StandValue;
             savedText4 = DoubleDownValue;
+            savedText5 = rulesEmote;
+            savedText6 = BetEmote;
+            savedText7 = Natural21;
+            savedText7 = Bust;
         }
 
-        ImGui.SetCursorPos(new Vector2(70, 300));
+        ImGui.SetCursorPos(new Vector2(70, 520));
         if (ImGui.Button("Reset"))
         {
             vALUEHIT = string.Empty;
             HitText = string.Empty;
             StandValue = string.Empty;
             DoubleDownValue = string.Empty;
+            rulesEmote = string.Empty;
+            BetEmote = string.Empty;
+            Natural21 = string.Empty;
+
+
         }
 
-        ImGui.SetCursorPos(new Vector2(130, 300));
+        ImGui.SetCursorPos(new Vector2(130, 520));
         if (ImGui.Button("Load"))
         {
             vALUEHIT = savedText1;
             HitText = savedText2;
             StandValue = savedText3;
             DoubleDownValue = savedText4;
+            rulesEmote = savedText5;
+            BetEmote = savedText6;
+            Natural21 = savedText7;
+            Bust = savedText8;
+
 
         }
-
+        ImGui.PopStyleColor();
     }
 
     public void DealerMembers()

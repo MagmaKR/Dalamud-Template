@@ -8,6 +8,7 @@ using SamplePlugin.Windows;
 using ECommons;
 using System.Reflection;
 using ECommons.Automation;
+using System.Runtime.CompilerServices;
 
 namespace SamplePlugin;
 
@@ -25,9 +26,12 @@ public sealed class Plugin : IDalamudPlugin
     public readonly WindowSystem WindowSystem = new("SamplePlugin");
     private ConfigWindow ConfigWindow { get; init; }
     private MainWindow MainWindow { get; init; }
+    private TestingWindow testingWindow { get; init; }
+
     public Chat Chat { get; }
     public PlayerNameUI PlayerNameUI { get; }
     public string dealerName = string.Empty;
+   
 
 
 
@@ -42,9 +46,12 @@ public sealed class Plugin : IDalamudPlugin
 
         ConfigWindow = new ConfigWindow(this);
         MainWindow = new MainWindow(this, goatImagePath);
+        testingWindow = new TestingWindow(this);
+
 
         WindowSystem.AddWindow(ConfigWindow);
         WindowSystem.AddWindow(MainWindow);
+        WindowSystem.AddWindow(testingWindow);
 
         CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
         {
@@ -73,6 +80,7 @@ public sealed class Plugin : IDalamudPlugin
 
         ConfigWindow.Dispose();
         MainWindow.Dispose();
+        testingWindow.Dispose();
 
         CommandManager.RemoveHandler(CommandName);
        
@@ -88,4 +96,5 @@ public sealed class Plugin : IDalamudPlugin
 
     public void ToggleConfigUI() => ConfigWindow.Toggle();
     public void ToggleMainUI() => MainWindow.Toggle();
+    public void ToggleTestWindowUI() => testingWindow.Toggle();
 }

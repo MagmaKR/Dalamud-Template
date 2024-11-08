@@ -21,6 +21,10 @@
     <ProjectReference Include="..\..\..\..\ECommons\ECommons\ECommons.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Windows\MainGUIElements\" />
+  </ItemGroup>
+
     <PropertyGroup>
         <UseWindowsForms>true</UseWindowsForms>
     </PropertyGroup>
