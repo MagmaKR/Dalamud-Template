@@ -81,7 +81,7 @@ public class MainWindow : Window, IDisposable
                     ImGui.PushID(member.Name.TextValue); // Unique ID for each player
 
                     // Start a child window for this player to add a border
-                    ImGui.BeginChild($"Player_{member.Name.TextValue}", new Vector2(0, 150), true, ImGuiWindowFlags.NoScrollbar);
+                    ImGui.BeginChild($"Player_{member.Name.TextValue}", new Vector2(0, 100), true, ImGuiWindowFlags.NoScrollbar);
 
                     ImGui.Text(member.Name.TextValue);
                     if (!playerBets.ContainsKey(member.Name.TextValue))
@@ -157,7 +157,7 @@ public class MainWindow : Window, IDisposable
                 ImGui.BeginChild("DealerSection", new Vector2(ImGui.GetWindowWidth() * 0.7f - 50f, 0), true);
                 ImGui.Text("Dealer Section:");
                 ImGui.SameLine();
-                ImGui.Text(Plugin.dealerName != "" ? Plugin.dealerName : "No Dealer Selected");
+               // ImGui.Text(Plugin.dealerName != "" ? Plugin.dealerName : "No Dealer Selected");
                 ImGui.Button("Dealer card amount ", new Vector2(250, 30));
                 ImGui.SameLine();
                 ImGui.Button("Reveal second card", new Vector2(150, 30));
